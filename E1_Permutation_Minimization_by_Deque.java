@@ -1,0 +1,30 @@
+import java.util.*;
+import java.lang.*;
+
+public class E1_Permutation_Minimization_by_Deque{
+
+public static void main(String[] args){
+    Scanner sc=new Scanner(System.in);
+     int t=sc.nextInt();
+     while(t-->0){
+         int n=sc.nextInt();
+         int arr[]=new int[n];
+         for(int i=0;i<n;i++) arr[i]=sc.nextInt();
+         Deque<Integer> dq=new ArrayDeque<>();
+         dq.addFirst(arr[0]);
+          for(int i=1;i<n;i++){
+             if(arr[i]<=dq.getFirst()){
+                 dq.addFirst(arr[i]);
+             }else{
+                 dq.addLast(arr[i]);
+             }
+         }
+
+
+         while(!dq.isEmpty()) System.out.print(dq.removeFirst()+" ");
+         System.out.println();
+
+
+     }
+}
+}
