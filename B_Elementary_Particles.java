@@ -4,8 +4,11 @@ import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class B_Kalindrome_Array {
+public class B_Elementary_Particles {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -49,69 +52,32 @@ public class B_Kalindrome_Array {
         }
     }
 
-    public static boolean isPal2(int[] arr) {
-        int i = 0, j = arr.length - 1;
-        while (i < j) {
-            if (arr[i] != arr[j])
-                return false;
-            ++i;
-            --j;
-        }
-        return true;
-    }
-
-    public static boolean isPal(ArrayList<Integer> arr) {
-        int i = 0, j = arr.size() - 1;
-        while (i < j) {
-            if (arr.get(i) != arr.get(j))
-                return false;
-            ++i;
-            --j;
-        }
-        return true;
-    }
-
-    public static boolean check(int arr[], int x) {
-
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int i : arr)
-            if (i != x)
-                temp.add(i);
-        return isPal(temp);
-
-    }
-
     public static void main(String[] args) {
         FastReader sc = new FastReader();
         int t = sc.nextInt();
         while (t-- > 0) {
             int n = sc.nextInt();
             int arr[] = new int[n];
+            HashMap<Integer, Integer> map = new HashMap<>();
             for (int i = 0; i < n; i++) {
+
                 arr[i] = sc.nextInt();
             }
 
-            if (n == 1 || n == 2 || isPal2(arr)) {
-                System.out.println("YES");
-                continue;
-            }
+            int ans = -1;
+            for (int i = 0; i < arr.length; i++) {
 
-            boolean flag = false;
-
-            int i = 0, j = n - 1;
-            while (i < j) {
-                if (arr[i] != arr[j]) {
-                    flag = check(arr, arr[i]) || check(arr, arr[j]);
-                    break;
+                if (map.containsKey(arr[i])) {
+                    int temp = n - i + map.get(arr[i]);
+                    ans = Math.max(temp, ans);
+                    map.put(arr[i], i);
+                } else {
+                    map.put(arr[i], i);
                 }
-                ++i;
-                --j;
+
             }
 
-            if (flag)
-                System.out.println("YES");
-            else
-                System.out.println("NO");
+            System.out.println(ans);
 
         }
 

@@ -4,8 +4,10 @@ import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class B_Kalindrome_Array {
+public class B_Balanced_Array {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -49,69 +51,41 @@ public class B_Kalindrome_Array {
         }
     }
 
-    public static boolean isPal2(int[] arr) {
-        int i = 0, j = arr.length - 1;
-        while (i < j) {
-            if (arr[i] != arr[j])
-                return false;
-            ++i;
-            --j;
-        }
-        return true;
-    }
-
-    public static boolean isPal(ArrayList<Integer> arr) {
-        int i = 0, j = arr.size() - 1;
-        while (i < j) {
-            if (arr.get(i) != arr.get(j))
-                return false;
-            ++i;
-            --j;
-        }
-        return true;
-    }
-
-    public static boolean check(int arr[], int x) {
-
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int i : arr)
-            if (i != x)
-                temp.add(i);
-        return isPal(temp);
-
-    }
-
     public static void main(String[] args) {
         FastReader sc = new FastReader();
         int t = sc.nextInt();
         while (t-- > 0) {
             int n = sc.nextInt();
-            int arr[] = new int[n];
-            for (int i = 0; i < n; i++) {
-                arr[i] = sc.nextInt();
-            }
+            // int arr[] = new int[n];
+            // for (int i = 0; i < n; i++) {
+            // arr[i] = sc.nextInt();
+            // }
 
-            if (n == 1 || n == 2 || isPal2(arr)) {
+            if (n % 4 == 0) {
                 System.out.println("YES");
-                continue;
-            }
-
-            boolean flag = false;
-
-            int i = 0, j = n - 1;
-            while (i < j) {
-                if (arr[i] != arr[j]) {
-                    flag = check(arr, arr[i]) || check(arr, arr[j]);
-                    break;
+                long es = 0;
+                int r = n / 2;
+                ArrayList<Integer> arr = new ArrayList<>();
+                for (int i = 1; i <= r; i++) {
+                    arr.add(2 * i);
+                    es += (2 * i);
                 }
-                ++i;
-                --j;
-            }
 
-            if (flag)
-                System.out.println("YES");
-            else
+                for (int i = 1; i < r; i++) {
+                    arr.add((2 * i) - 1);
+                    es -= ((2 * i) - 1);
+                }
+
+                arr.add((int) es);
+
+                for (int j : arr)
+                    System.out.print(j + " ");
+
+                System.out.println();
+
+            } else {
                 System.out.println("NO");
+            }
 
         }
 

@@ -4,8 +4,10 @@ import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class B_Kalindrome_Array {
+public class C_Inversion_Graph {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -49,38 +51,6 @@ public class B_Kalindrome_Array {
         }
     }
 
-    public static boolean isPal2(int[] arr) {
-        int i = 0, j = arr.length - 1;
-        while (i < j) {
-            if (arr[i] != arr[j])
-                return false;
-            ++i;
-            --j;
-        }
-        return true;
-    }
-
-    public static boolean isPal(ArrayList<Integer> arr) {
-        int i = 0, j = arr.size() - 1;
-        while (i < j) {
-            if (arr.get(i) != arr.get(j))
-                return false;
-            ++i;
-            --j;
-        }
-        return true;
-    }
-
-    public static boolean check(int arr[], int x) {
-
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int i : arr)
-            if (i != x)
-                temp.add(i);
-        return isPal(temp);
-
-    }
-
     public static void main(String[] args) {
         FastReader sc = new FastReader();
         int t = sc.nextInt();
@@ -91,29 +61,51 @@ public class B_Kalindrome_Array {
                 arr[i] = sc.nextInt();
             }
 
-            if (n == 1 || n == 2 || isPal2(arr)) {
-                System.out.println("YES");
-                continue;
-            }
-
-            boolean flag = false;
-
-            int i = 0, j = n - 1;
-            while (i < j) {
-                if (arr[i] != arr[j]) {
-                    flag = check(arr, arr[i]) || check(arr, arr[j]);
-                    break;
+            DSU dsu = new DSU(n);
+            Stack<Integer> stack = new Stack<Integer>();
+            for (int i : arr) {
+                while (!stack.isEmpty() && i < stack.peek()) {
+                    dsu.mu(i, stack.pop());
                 }
-                ++i;
-                --j;
+                stack.push(i);
             }
 
-            if (flag)
-                System.out.println("YES");
-            else
-                System.out.println("NO");
+            System.out.println("Stack Size: " + stack.size());
+
+            int ans = 0;
+            for (int i : arr)
+                if (dsu.gp(i) == i)
+                    ++ans;
+
+            // System.out.println(stack.size());
+            System.out.println(ans);
 
         }
 
     }
+}
+
+class DSU {
+
+    int parent[];
+
+    public DSU(int n) {
+        parent = new int[n + 1];
+        for (int i = 0; i < parent.length; i++) {
+            parent[i] = i;
+        }
+    }
+
+    public int gp(int x) {
+        if (parent[x] == x)
+            return x;
+        return parent[x] = gp(parent[x]);
+    }
+
+    public void mu(int a, int b) {
+        int pa = gp(a);
+        int pb = gp(b);
+        parent[pb] = pa;
+    }
+
 }

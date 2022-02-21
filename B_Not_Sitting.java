@@ -1,3 +1,5 @@
+
+// Working program with FastReader
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -5,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class B_Groups {
+public class B_Not_Sitting {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -54,56 +56,27 @@ public class B_Groups {
         int t = sc.nextInt();
         while (t-- > 0) {
             int n = sc.nextInt();
-            int arr[][] = new int[n][5];
+            int m = sc.nextInt();
 
+            int arr[] = new int[n * m];
+            int idx = 0;
+
+            // arr stores distance of Tina with respect to every block i,j
             for (int i = 0; i < n; i++) {
-                for (int j = 0; j < 5; j++) {
-                    arr[i][j] = sc.nextInt();
+                for (int j = 0; j < m; j++) {
+                    arr[idx++] = Math.max(i, n - i - 1) + Math.max(j, m - j - 1);
                 }
             }
 
-            boolean flag = false;
-            // select the days
-            for (int i = 0; i < 5; i++) {
-                for (int j = i + 1; j < 5; j++) {
+            // Sorting this array as when k is less then rahul will be closer to Tinal and
+            // hence the overall distance b/w
+            // them would be less. As the k increases the distance might increase b/w Tina &
+            // Rahul
+            Arrays.sort(arr);
 
-                    int a = 0, b = 0, c = 0;
-
-                    for (int k = 0; k < n; k++) {
-
-                        if (arr[k][i] == 1)
-                            ++a;
-                        if (arr[k][j] == 1)
-                            ++b;
-                        if (arr[k][i] == 1 && arr[k][j] == 1)
-                            ++c;
-
-                    }
-
-                    int req = n / 2;
-                    int oa = a - c, ob = b - c;
-
-                    for (int e = 0; e <= c; e++) {
-                        if ((oa + e) == req && (ob + c - e) == req) {
-                            // System.out.println("YES");
-                            flag = true;
-                            break;
-                        }
-                    }
-
-                    if (flag == true)
-                        break;
-
-                }
-                if (flag == true)
-                    break;
-
-            }
-
-            if (flag == true)
-                System.out.println("YES");
-            else
-                System.out.println("NO");
+            for (int i : arr)
+                System.out.print(i + " ");
+            System.out.println();
 
         }
 

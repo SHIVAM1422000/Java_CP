@@ -4,8 +4,10 @@ import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class B_Kalindrome_Array {
+public class C_Wrong_Addition {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -49,69 +51,67 @@ public class B_Kalindrome_Array {
         }
     }
 
-    public static boolean isPal2(int[] arr) {
-        int i = 0, j = arr.length - 1;
-        while (i < j) {
-            if (arr[i] != arr[j])
-                return false;
-            ++i;
-            --j;
-        }
-        return true;
-    }
-
-    public static boolean isPal(ArrayList<Integer> arr) {
-        int i = 0, j = arr.size() - 1;
-        while (i < j) {
-            if (arr.get(i) != arr.get(j))
-                return false;
-            ++i;
-            --j;
-        }
-        return true;
-    }
-
-    public static boolean check(int arr[], int x) {
-
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int i : arr)
-            if (i != x)
-                temp.add(i);
-        return isPal(temp);
-
-    }
-
     public static void main(String[] args) {
         FastReader sc = new FastReader();
         int t = sc.nextInt();
         while (t-- > 0) {
-            int n = sc.nextInt();
-            int arr[] = new int[n];
-            for (int i = 0; i < n; i++) {
-                arr[i] = sc.nextInt();
+
+            String a = sc.next();
+            String r = sc.next();
+            boolean flag = true;
+            int i = a.length() - 1, j = r.length() - 1;
+            String b = "";
+
+            while (i >= 0 && j >= 0) {
+
+                if (a.charAt(i) > r.charAt(j)) {
+
+                    if (j - 1 < 0) {
+                        flag = false;
+                        break;
+                    }
+                    int temp = (10 * (r.charAt(j - 1) - '0')) + (r.charAt(j) - '0');
+                    if (temp < 10 || temp > 18) {
+                        flag = false;
+                        break;
+                    }
+
+                    int curr = temp - (a.charAt(i) - '0');
+                    b = curr + b;
+                    j = j - 2;
+                    i--;
+
+                } else {
+                    b = (r.charAt(j) - a.charAt(i)) + b;
+                    --i;
+                    --j;
+                }
             }
 
-            if (n == 1 || n == 2 || isPal2(arr)) {
-                System.out.println("YES");
+            if (flag == false || i >= 0) {
+                System.out.println(-1);
                 continue;
             }
 
-            boolean flag = false;
-
-            int i = 0, j = n - 1;
-            while (i < j) {
-                if (arr[i] != arr[j]) {
-                    flag = check(arr, arr[i]) || check(arr, arr[j]);
-                    break;
-                }
-                ++i;
+            while (j >= 0) {
+                b = r.charAt(j) + b;
                 --j;
             }
 
-            if (flag)
-                System.out.println("YES");
-            else
-                System.out.println("NO");
+            int z = 0;
+            while (z < b.length()) {
+
+                if (b.charAt(z++) == '0')
+                    continue;
+                else
+                    break;
+
+            }
+
+            if (--z >= 0)
+                b = b.substring(z);
+
+            System.out.println(b);
 
         }
 

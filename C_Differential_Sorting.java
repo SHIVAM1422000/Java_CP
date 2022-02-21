@@ -1,3 +1,5 @@
+
+// Working program with FastReader
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -5,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class B_Groups {
+public class C_Differential_Sorting {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -54,56 +56,48 @@ public class B_Groups {
         int t = sc.nextInt();
         while (t-- > 0) {
             int n = sc.nextInt();
-            int arr[][] = new int[n][5];
+             int arr[]=new int[n];
+             for(int i=0;i<n;i++){
+          arr[i]=sc.nextInt();
+    }
 
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < 5; j++) {
-                    arr[i][j] = sc.nextInt();
-                }
-            }
 
-            boolean flag = false;
-            // select the days
-            for (int i = 0; i < 5; i++) {
-                for (int j = i + 1; j < 5; j++) {
+   boolean isDec=true;
+   for(int i=1;i<n;i++){
+       if(arr[i]>=arr[i-1]){
+           continue;
+       }else{
+           isDec=false;
+           break;
+       }
+   }
 
-                    int a = 0, b = 0, c = 0;
+   if(isDec) {
+       System.out.println(0);
+       continue;
+   }
 
-                    for (int k = 0; k < n; k++) {
 
-                        if (arr[k][i] == 1)
-                            ++a;
-                        if (arr[k][j] == 1)
-                            ++b;
-                        if (arr[k][i] == 1 && arr[k][j] == 1)
-                            ++c;
+   long rep=arr[n-2]-arr[n-1];
+   if(rep<=arr[n-2] && arr[n-2]<=arr[n-1]){
+      System.out.println(n-2);
+      for(int i=1;i<=n-2;i++){
+          arr[i-1]=(int)rep;
+        System.out.println((i)+" "+(n-1)+" "+n);
+      }
 
-                    }
 
-                    int req = n / 2;
-                    int oa = a - c, ob = b - c;
+     
+   }else{
+    System.out.println(-1);
+    // continue;
+   }
+   
 
-                    for (int e = 0; e <= c; e++) {
-                        if ((oa + e) == req && (ob + c - e) == req) {
-                            // System.out.println("YES");
-                            flag = true;
-                            break;
-                        }
-                    }
 
-                    if (flag == true)
-                        break;
 
-                }
-                if (flag == true)
-                    break;
 
-            }
 
-            if (flag == true)
-                System.out.println("YES");
-            else
-                System.out.println("NO");
 
         }
 

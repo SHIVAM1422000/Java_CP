@@ -4,8 +4,10 @@ import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class B_Kalindrome_Array {
+public class D_Array_and_Operations {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -49,69 +51,41 @@ public class B_Kalindrome_Array {
         }
     }
 
-    public static boolean isPal2(int[] arr) {
-        int i = 0, j = arr.length - 1;
-        while (i < j) {
-            if (arr[i] != arr[j])
-                return false;
-            ++i;
-            --j;
-        }
-        return true;
-    }
-
-    public static boolean isPal(ArrayList<Integer> arr) {
-        int i = 0, j = arr.size() - 1;
-        while (i < j) {
-            if (arr.get(i) != arr.get(j))
-                return false;
-            ++i;
-            --j;
-        }
-        return true;
-    }
-
-    public static boolean check(int arr[], int x) {
-
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int i : arr)
-            if (i != x)
-                temp.add(i);
-        return isPal(temp);
-
-    }
-
     public static void main(String[] args) {
         FastReader sc = new FastReader();
         int t = sc.nextInt();
         while (t-- > 0) {
+
             int n = sc.nextInt();
+            int k = sc.nextInt();
+
             int arr[] = new int[n];
             for (int i = 0; i < n; i++) {
                 arr[i] = sc.nextInt();
             }
 
-            if (n == 1 || n == 2 || isPal2(arr)) {
-                System.out.println("YES");
-                continue;
+            // Arrays.sort(arr);
+            Arrays.sort(arr);
+            int m = 0, l = arr.length - 1;
+            while (m < l) {
+                int temp = arr[m];
+                arr[m] = arr[l];
+                arr[l] = temp;
+                ++m;
+                --l;
             }
 
-            boolean flag = false;
+            long ans = 0;
 
-            int i = 0, j = n - 1;
-            while (i < j) {
-                if (arr[i] != arr[j]) {
-                    flag = check(arr, arr[i]) || check(arr, arr[j]);
-                    break;
-                }
-                ++i;
-                --j;
+            for (int i = 0; i < k; i++) {
+                ans += (arr[i + k] / arr[i]);
             }
 
-            if (flag)
-                System.out.println("YES");
-            else
-                System.out.println("NO");
+            for (int i = 2 * k; i < n; i++) {
+                ans += (arr[i]);
+            }
+
+            System.out.println(ans);
 
         }
 

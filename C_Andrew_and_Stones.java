@@ -4,8 +4,10 @@ import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class B_Kalindrome_Array {
+public class C_Andrew_and_Stones {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -49,38 +51,6 @@ public class B_Kalindrome_Array {
         }
     }
 
-    public static boolean isPal2(int[] arr) {
-        int i = 0, j = arr.length - 1;
-        while (i < j) {
-            if (arr[i] != arr[j])
-                return false;
-            ++i;
-            --j;
-        }
-        return true;
-    }
-
-    public static boolean isPal(ArrayList<Integer> arr) {
-        int i = 0, j = arr.size() - 1;
-        while (i < j) {
-            if (arr.get(i) != arr.get(j))
-                return false;
-            ++i;
-            --j;
-        }
-        return true;
-    }
-
-    public static boolean check(int arr[], int x) {
-
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int i : arr)
-            if (i != x)
-                temp.add(i);
-        return isPal(temp);
-
-    }
-
     public static void main(String[] args) {
         FastReader sc = new FastReader();
         int t = sc.nextInt();
@@ -91,27 +61,25 @@ public class B_Kalindrome_Array {
                 arr[i] = sc.nextInt();
             }
 
-            if (n == 1 || n == 2 || isPal2(arr)) {
-                System.out.println("YES");
-                continue;
-            }
-
-            boolean flag = false;
-
-            int i = 0, j = n - 1;
-            while (i < j) {
-                if (arr[i] != arr[j]) {
-                    flag = check(arr, arr[i]) || check(arr, arr[j]);
+            boolean all = true;
+            for (int i = 1; i < n - 1; i++) {
+                if (arr[i] == 1) {
+                    continue;
+                } else {
+                    all = false;
                     break;
                 }
-                ++i;
-                --j;
             }
 
-            if (flag)
-                System.out.println("YES");
-            else
-                System.out.println("NO");
+            if (all || (n == 3 && arr[1] % 2 != 0)) {
+                System.out.println(-1);
+            } else {
+                long temp = 0;
+                for (int i = 1; i < n - 1; i++) {
+                    temp += ((arr[i] + 1) / 2);
+                }
+                System.out.println(temp);
+            }
 
         }
 
