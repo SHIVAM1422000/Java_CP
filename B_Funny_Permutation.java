@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.StringTokenizer;
 
-public class C_Inversion_Graph {
+public class B_Funny_Permutation {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -58,11 +58,34 @@ public class C_Inversion_Graph {
                       
                        int n=sc.nextInt();
                        int arr[]=new int[n];
-                       for(int i=0;i<n;i++) arr[i]=sc.nextInt();
+                       int temp=n;
+                       if(n==3){
+                        System.out.println(-1);
+                        continue;
+                       }
 
+                       if(n==2){
+                        System.out.println("2 1");
+                        continue;
+                       }
+                       if(n==5){
+                        System.out.println("5 4 1 2 3");
+                        continue;
+                       }
                        
+                       for(int i=0;i<n;i++){
+                         arr[i]=temp--;
+                       }
 
-                       
+                       if(n%2!=0){
+                          int mid=(n+1)/2-1;
+                          int tm=arr[mid+1];
+                          arr[mid+1]=arr[mid];
+                          arr[mid]=tm;
+                       }
+
+                       for(int i:arr) System.out.print(i+ " ");
+                       System.out.println();
                
                  } 
         

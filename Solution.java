@@ -2,9 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.util.StringTokenizer;
 
-public class C_Inversion_Graph {
+public class Solution {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -50,6 +49,43 @@ public class C_Inversion_Graph {
         }
     }
 
+
+    public static int getMinLength(List<Integer> arr){
+
+        int n=arr.size();
+        int i=n-1;
+        while(i<arr.size() && i-1>=0){
+            if(arr.get(i-1)==arr.get(i)){
+                i--;
+            }else{
+                int temp=arr.get(i-1);
+                arr.set(i-1,temp%arr.get(i));
+                arr.remove(i);
+            }
+        }
+
+        n=arr.size();
+         i=n-1;
+        while(i<arr.size() && i-1>=0){
+              if(arr.get(i)==0){
+                --i;
+                continue;
+              }
+
+                int temp=arr.get(i-1);
+                arr.set(i-1,temp%arr.get(i));
+                arr.remove(i);
+            
+        }
+
+        // for(int j:arr) System.out.print(j+" ");
+        // System.out.println();
+
+        return arr.size();
+
+
+   }
+
     public static void main(String[] args)
     {
         FastReader sc = new FastReader();
@@ -60,10 +96,11 @@ public class C_Inversion_Graph {
                        int arr[]=new int[n];
                        for(int i=0;i<n;i++) arr[i]=sc.nextInt();
 
-                       
-
-                       
+                       List<Integer> li=new ArrayList<>();
+                       for(int i:arr) li.add(i);
+                       System.out.println(getMinLength(li)); 
                
+
                  } 
         
     }

@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.StringTokenizer;
 
-public class C_Inversion_Graph {
+public class C_Minimize_the_Thickness {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -50,6 +50,9 @@ public class C_Inversion_Graph {
         }
     }
 
+
+    
+
     public static void main(String[] args)
     {
         FastReader sc = new FastReader();
@@ -58,13 +61,37 @@ public class C_Inversion_Graph {
                       
                        int n=sc.nextInt();
                        int arr[]=new int[n];
+                       int sum[]=new int[n];
                        for(int i=0;i<n;i++) arr[i]=sc.nextInt();
+                       sum[0]=arr[0];
+                       for(int i=1;i<n;i++) sum[i]=arr[i]+sum[i-1];
 
-                       
 
-                       
+                       int ans=n;
+                       for(int i=0;i<n;i++){
+                         int cs=sum[i],cl=i+1,l=i;
+                         int ts=0;
+                        //  System.out.println("For Index i: "  + i + " cs: " + cs);
+                         for(int j=i+1;j<n;j++){
+                             ts+=arr[j];
+                             if(ts==cs){
+                                int len=(j-l);
+                                // System.out.println("Matched  idx: " + j +  " last: " + l +" len: " + len);
+                                ts=0; l=j; cl=Math.max(cl,len);
+                             }
+                             if(l==n-1){
+                                // System.out.println("Currently at req index, cl:"+cl);
+                                 ans=Math.min(ans,cl);
+                             }
+                         }
+
+
+                       }
+
+                       System.out.println(ans);
                
                  } 
         
     }
 }
+

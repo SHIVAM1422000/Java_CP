@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.StringTokenizer;
 
-public class C_Inversion_Graph {
+public class A_Make_it_Increasing{
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -53,18 +53,39 @@ public class C_Inversion_Graph {
     public static void main(String[] args)
     {
         FastReader sc = new FastReader();
-        int t = sc.nextInt();
-                while(t-->0){
+
                       
                        int n=sc.nextInt();
-                       int arr[]=new int[n];
-                       for(int i=0;i<n;i++) arr[i]=sc.nextInt();
+                       long arr[]=new long[n];
+                       for(int i=0;i<n;i++) arr[i]=sc.nextLong();
+         long ans=Long.MAX_VALUE;
+ 
+                       for(int i=0;i<n;i++){
+                            
+                            long temp[]=new long[n];
+                            long count=0;
+                            for(int j=i-1;j>=0;j--){
+                                  long t=(temp[j+1]/arr[j]) + 1;
+                                  temp[j]= t * arr[j];
+                                  count+=t;
+                            }
 
-                       
 
-                       
+                            for(int j=i+1;j<n;j++){
+                                    long t=(temp[j-1]/arr[j])+1;
+                                    temp[j]=t*arr[j];
+                                    count+=t;
+                            }
+
+ans=Math.min(ans,count);
+                             
+                             
+                       }
+
+
+                       System.out.println(ans);
                
-                 } 
+
         
     }
 }
