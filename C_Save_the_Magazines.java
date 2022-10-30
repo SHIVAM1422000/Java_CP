@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.StringTokenizer;
 
-public class Solution {
+public class C_Save_the_Magazines {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -50,17 +50,6 @@ public class Solution {
         }
     }
 
-
-    static long ans(long n,long curr,long max){
-        if(n%32768==0) return curr;
-        if(curr>max) return Long.MAX_VALUE;
-        long a = ans(n+1, curr +1 , max);
-        long b = ans(2*n , curr+1, max);
-        long t=Math.min(a,b);
-         return t; 
-    }
-
-
     public static void main(String[] args)
     {
         FastReader sc = new FastReader();
@@ -68,11 +57,35 @@ public class Solution {
                 while(t-->0){
                       
                        int n=sc.nextInt();
-                       long arr[]=new long[n];
-                       for(int i=0;i<n;i++) arr[i]=sc.nextLong();
-                       for(long curr:arr){
-                            System.out.println(ans(curr,0,(32768-curr)) +" ");
+                       int arr[]=new int[n];
+                        String bits=sc.next();
+                       for(int i=0;i<n;i++) arr[i]=sc.nextInt();
+                       boolean b[]=new boolean[n];
+
+
+                       long ans=0;
+                       for(int i=0;i<n;i++){
+                        if(bits.charAt(i)=='1'){
+                                     b[i-1]=true;
+                        }
+                    }
+
+
+                       for(int i=0;i<n;i++){
+
+                          if(b[i] && i-1>=0 && !b[i-1] && arr[i-1]>=arr[i]){
+                                  b[i-1]=true;
+                                  b[i]=false;
+                                  ans+=arr[i-1];
+                          }
+    
                        }
+
+
+
+
+
+                       System.out.println(ans);
                
                  } 
         

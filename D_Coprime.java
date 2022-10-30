@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.StringTokenizer;
 
-public class Solution {
+public class  D_Coprime {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -51,15 +51,11 @@ public class Solution {
     }
 
 
-    static long ans(long n,long curr,long max){
-        if(n%32768==0) return curr;
-        if(curr>max) return Long.MAX_VALUE;
-        long a = ans(n+1, curr +1 , max);
-        long b = ans(2*n , curr+1, max);
-        long t=Math.min(a,b);
-         return t; 
-    }
-
+   public static int gcd(int a,int b){
+     if(b>a) return gcd(b,a);
+     if (b == 0) return a;
+     return gcd(b, a % b);
+   }
 
     public static void main(String[] args)
     {
@@ -68,11 +64,32 @@ public class Solution {
                 while(t-->0){
                       
                        int n=sc.nextInt();
-                       long arr[]=new long[n];
-                       for(int i=0;i<n;i++) arr[i]=sc.nextLong();
-                       for(long curr:arr){
-                            System.out.println(ans(curr,0,(32768-curr)) +" ");
+                       int arr[]=new int[n+1];
+                       
+                       HashMap<Integer,Integer> map=new HashMap<>();
+                       for(int i=1;i<=n;i++){
+                         int temp=sc.nextInt();
+                         arr[i]=temp;
+                         map.put(temp, i);
                        }
+
+
+                       long ans=-1;
+                       for(int i=1;i<=1000;i++){
+                        for(int j=1;j<=1000;j++){
+
+                            int g=gcd(i,j);
+                            if(g==1 && map.containsKey(i) && map.containsKey(j)){
+                                long temp=map.get(i)+map.get(j);
+                                ans=Math.max(ans,temp);
+                            }
+
+                        }
+                       }
+
+                       System.out.println(ans);
+                   
+
                
                  } 
         

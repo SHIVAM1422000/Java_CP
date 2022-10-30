@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.StringTokenizer;
 
-public class Solution {
+public class B_Increasing {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -50,17 +50,6 @@ public class Solution {
         }
     }
 
-
-    static long ans(long n,long curr,long max){
-        if(n%32768==0) return curr;
-        if(curr>max) return Long.MAX_VALUE;
-        long a = ans(n+1, curr +1 , max);
-        long b = ans(2*n , curr+1, max);
-        long t=Math.min(a,b);
-         return t; 
-    }
-
-
     public static void main(String[] args)
     {
         FastReader sc = new FastReader();
@@ -68,10 +57,24 @@ public class Solution {
                 while(t-->0){
                       
                        int n=sc.nextInt();
-                       long arr[]=new long[n];
-                       for(int i=0;i<n;i++) arr[i]=sc.nextLong();
-                       for(long curr:arr){
-                            System.out.println(ans(curr,0,(32768-curr)) +" ");
+                       int arr[]=new int[n];
+                       for(int i=0;i<n;i++) arr[i]=sc.nextInt();
+
+                       Arrays.sort(arr);
+                       boolean flag=true;
+                       for(int i=1;i<n;i++){
+                         if(arr[i]>arr[i-1]) continue;
+                         else {
+                             flag=false;
+                             break;
+                         }
+                       }
+
+
+                       if(flag){
+                        System.out.println("YES");
+                       }else{
+                        System.out.println("NO");
                        }
                
                  } 

@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.StringTokenizer;
 
-public class Solution {
+public class A_Sum {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -50,28 +50,20 @@ public class Solution {
         }
     }
 
-
-    static long ans(long n,long curr,long max){
-        if(n%32768==0) return curr;
-        if(curr>max) return Long.MAX_VALUE;
-        long a = ans(n+1, curr +1 , max);
-        long b = ans(2*n , curr+1, max);
-        long t=Math.min(a,b);
-         return t; 
-    }
-
-
     public static void main(String[] args)
     {
         FastReader sc = new FastReader();
         int t = sc.nextInt();
                 while(t-->0){
                       
-                       int n=sc.nextInt();
-                       long arr[]=new long[n];
-                       for(int i=0;i<n;i++) arr[i]=sc.nextLong();
-                       for(long curr:arr){
-                            System.out.println(ans(curr,0,(32768-curr)) +" ");
+                       int a=sc.nextInt();
+                       int b=sc.nextInt();
+                       int c=sc.nextInt();
+                        boolean flag=false;
+                       if((a+b==c)||(b+c==a)||(c+a==b)){
+                          System.out.println("YES");
+                       }else{
+                        System.out.println("NO");
                        }
                
                  } 

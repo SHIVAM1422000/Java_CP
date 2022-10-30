@@ -8,71 +8,38 @@ int main(){
      int t;
      cin >> t;
      while(t--){
+         string str1,
          int n,k;
          cin >> n >> k; 
-         cin.ignore();
-         set<int> set1,set2;
-         string s;
-         getline(cin,s);
+         cin >> str; 
 
-         for(int i=0 ; i<s.size(); i++){
-             if(s[i]=='1'){ 
-                set1.insert(-i);
-                set2.insert(i);
-                }
-          }
-
-
-          int ans=0;
-
-/**
-
-cout<<"Initial"<<endl;
-for(auto et:set1) cout<<et<<" ";
-cout<<endl;
-for(auto et:set2) cout<<et<<" ";
-cout<<endl;
-cout<<endl;
-
-**/
+         int arr[n];
+         arr[0]=(str[0]=='1')?1:0;
+         for(int i=1;i<n;i++){
+            arr[i]=arr[i-1];
+            if(s[i]=='1'){
+                arr[i]++;
+            }
+         }
 
 
-          for(int i=0;i<n;i++)
-          {
-             if(s[i]=='1') continue;
-              int ul=i+k;
-              int ll=i-k;
-             
-              
-              auto lit=set1.upper_bound(-i);
-              auto uit=set2.upper_bound(i);
-              int lidx=(lit!=set1.end()) ? (*lit)*-1 : -1;
-              int uidx=(uit!=set2.end()) ? (*uit) : -1;
-            //   cout<<"Index: "<< i<< " lidx: " << lidx << "  uidx: " << uidx << endl;
-              bool flag=true;
+int ans=0;
+         for(int i=0;i<str.length;i++){
+            if(str.charAt(i)=='1') continue;
+            boolean flag=true;
+            if(i==0){
+                if(i-k>=0 && arr[i]!=arr[i-k]) ++ans;
+            }else if(i==n-1){
+                if(i+k<n && arr[i]==arr[i+k]) ++ans; 
+            }else{
 
+            }
+            
+         }
 
-              if(lidx==-1 || lidx<ll) flag=flag&true;
-              else flag=flag&false;
+cout<<ans<<endl;
 
-              if(uidx==-1 || uidx>ul) flag=flag&true;
-              else flag=flag&false;
-
-
-              if(flag){
-                  s[i]='1';
-                  ++ans;
-                set1.insert(-i);
-                set2.insert(i);
-              } 
- 
-
-          }
-
-
-      cout<< ans << endl;
-
-
+      
 
      }
    

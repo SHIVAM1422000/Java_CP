@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.StringTokenizer;
 
-public class Solution {
+public class C_Stripes {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -50,29 +50,49 @@ public class Solution {
         }
     }
 
-
-    static long ans(long n,long curr,long max){
-        if(n%32768==0) return curr;
-        if(curr>max) return Long.MAX_VALUE;
-        long a = ans(n+1, curr +1 , max);
-        long b = ans(2*n , curr+1, max);
-        long t=Math.min(a,b);
-         return t; 
-    }
-
-
     public static void main(String[] args)
     {
         FastReader sc = new FastReader();
         int t = sc.nextInt();
                 while(t-->0){
                       
-                       int n=sc.nextInt();
-                       long arr[]=new long[n];
-                       for(int i=0;i<n;i++) arr[i]=sc.nextLong();
-                       for(long curr:arr){
-                            System.out.println(ans(curr,0,(32768-curr)) +" ");
-                       }
+                    boolean flag=false;
+                    char arr[][]=new char[8][8];
+                    for(int i=0;i<8;i++){
+                       String curr=sc.next();
+                       arr[i]=curr.toCharArray();
+                    }
+
+                    int max=0;
+                    char ans=' ';
+                    for(int j=0;j<8;j++){
+                        int count=0;
+                         for(int i=0;i<8;i++){
+                            if(arr[i][j]=='B') ++count;
+                         }
+                         if(count>max){
+                            max=count;
+                            ans='B';
+                         }
+
+                    }
+
+                    for(int i=0;i<8;i++){
+                        int count=0;
+                         for(int j=0;j<8;j++){
+                            if(arr[i][j]=='R') ++count;
+                         }
+                         if(count>max){
+                            max=count;
+                            ans='R';
+                         }
+
+                    }
+
+                    System.out.println(ans);
+
+
+                    
                
                  } 
         

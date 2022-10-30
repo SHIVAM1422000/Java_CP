@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.StringTokenizer;
 
-public class Solution {
+public class C_Registration_system {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -50,29 +50,23 @@ public class Solution {
         }
     }
 
-
-    static long ans(long n,long curr,long max){
-        if(n%32768==0) return curr;
-        if(curr>max) return Long.MAX_VALUE;
-        long a = ans(n+1, curr +1 , max);
-        long b = ans(2*n , curr+1, max);
-        long t=Math.min(a,b);
-         return t; 
-    }
-
-
     public static void main(String[] args)
     {
         FastReader sc = new FastReader();
         int t = sc.nextInt();
+        HashMap<String,Integer> map=new HashMap<>();
                 while(t-->0){
                       
-                       int n=sc.nextInt();
-                       long arr[]=new long[n];
-                       for(int i=0;i<n;i++) arr[i]=sc.nextLong();
-                       for(long curr:arr){
-                            System.out.println(ans(curr,0,(32768-curr)) +" ");
-                       }
+                    String s=sc.next();
+                    if(map.containsKey(s)){
+                         int temp=map.get(s);
+                         map.put(s,temp+1);
+                         String curr=s+temp;
+                         System.out.println(curr);
+                    }else{
+                         System.out.println("OK");
+                         map.put(s, 1);
+                    }
                
                  } 
         
